@@ -2,20 +2,22 @@ default: &default
   adapter: postgresql
   encoding: unicode
   pool: <%= ENV.fetch("RAILS_MAX_THREADS") { 5 } %>
-  username: admin
-  password: Loveda1234
-  host: localhost
+  timeout: 5000
 
 development:
   <<: *default
   database: hospital_portal_development
+  host: <%= ENV['DB_HOST'] || 'localhost' %>
+  username: <%= ENV['DB_USERNAME'] || 'postgres' %>
+  password: <%= ENV['DB_PASSWORD'] || '' %>
 
 test:
   <<: *default
   database: hospital_portal_test
+  host: <%= ENV['DB_HOST'] || 'localhost' %>
+  username: <%= ENV['DB_USERNAME'] || 'postgres' %>
+  password: <%= ENV['DB_PASSWORD'] || '' %>
 
 production:
   <<: *default
-  database: hospital_portal_production
-  username: hospital_user
-  password: <%= ENV['HOSPITAL_PORTAL_DATABASE_PASSWORD'] %>
+  database: <%= ENV['DATABASE_URL'] %>
