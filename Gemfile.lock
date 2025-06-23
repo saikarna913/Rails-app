@@ -147,6 +147,8 @@ GEM
     google-protobuf (4.31.1-x86_64-linux-musl)
       bigdecimal
       rake (>= 13)
+    groupdate (6.7.0)
+      activesupport (>= 7.1)
     i18n (1.14.7)
       concurrent-ruby (~> 1.0)
     importmap-rails (2.1.0)
@@ -428,10 +430,11 @@ DEPENDENCIES
   bootstrap (~> 5.3.2)
   brakeman
   capybara
-  chartkick
+  chartkick (~> 5.0)
   dartsass-rails
   debug
   devise
+  groupdate
   importmap-rails
   jbuilder
   kamal

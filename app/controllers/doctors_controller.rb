@@ -2,6 +2,10 @@ class DoctorsController < ApplicationController
   before_action :authenticate_user!
   before_action :restrict_to_doctor
 
+  def dashboard
+    @patients = Patient.all
+    @patient_registrations = Patient.group_by_day(:created_at).count
+  end
   def index
     @patients = Patient.all
     # Data for graph: patients registered per day
