@@ -28,9 +28,6 @@
               <%= current_user.email %> (<%= current_user.role.capitalize %>)
             </a>
             <ul class="dropdown-menu dropdown-menu-end border-0 shadow-sm fs-6" aria-labelledby="navbarDropdown">
-              <li>
-                <%= link_to "Edit Profile", edit_user_registration_path, class: "dropdown-item py-2" %>
-              </li>
               <li><hr class="dropdown-divider my-1"></li>
               <li>
                 <%= button_to "Sign Out", destroy_user_session_path, 
@@ -45,9 +42,6 @@
           <!-- Guest links -->
           <li class="nav-item">
             <%= link_to "Sign In", new_user_session_path, class: "nav-link text-dark" %>
-          </li>
-          <li class="nav-item ms-2">
-            <%= link_to "Sign Up", new_user_registration_path, class: "btn btn-outline-dark rounded-pill px-3 fs-6" %>
           </li>
         <% end %>
       </ul>

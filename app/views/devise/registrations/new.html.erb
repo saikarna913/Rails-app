@@ -1,12 +1,15 @@
 <div class="container mt-5" style="max-width: 500px;">
-  <h2 class="mb-4 text-center">Sign up</h2>
+  <h2 class="mb-4 text-center">Create New User</h2>
 
-  <%= form_for(resource, as: resource_name, url: registration_path(resource_name), html: { class: "border p-4 rounded", onsubmit: "handleSignup(event)" }) do |f| %>
-    <%= render "devise/shared/error_messages", resource: resource %>
+  <%= form_with(model: [:admin, @user], local: true, html: { class: "border p-4 rounded" }) do |f| %>
+    <%= render "shared/error_messages", resource: @user %>
 
     <div class="mb-3">
       <%= f.label :email, class: "form-label" %><br />
-      <%= f.email_field :email, autofocus: true, autocomplete: "email", class: "form-control" %>
+      <%= f.email_field :email, autofocus: true, autocomplete: "email", class: "form-control", required: true %>
+      <div class="invalid-feedback">
+        Please provide a valid email.
+      </div>
     </div>
 
     <div class="mb-3">
@@ -14,51 +17,51 @@
       <% if @minimum_password_length %>
         <small class="text-muted">(<%= @minimum_password_length %> characters minimum)</small>
       <% end %><br />
-      <%= f.password_field :password, autocomplete: "new-password", class: "form-control" %>
+      <%= f.password_field :password, autocomplete: "new-password", class: "form-control", required: true, minlength: 6 %>
+      <div class="invalid-feedback">
+        Password must be at least 6 characters.
+      </div>
     </div>
 
-    <div class="mb-4">
+    <div class="mb-3">
       <%= f.label :password_confirmation, class: "form-label" %><br />
-      <%= f.password_field :password_confirmation, autocomplete: "new-password", class: "form-control" %>
+      <%= f.password_field :password_confirmation, autocomplete: "new-password", class: "form-control", required: true %>
+      <div class="invalid-feedback">
+        Passwords must match.
+      </div>
+    </div>
+
+    <div class="mb-4 form-check">
+      <%= f.check_box :admin, class: "form-check-input" %>
+      <%= f.label :admin, "Grant admin privileges", class: "form-check-label" %>
     </div>
 
     <div class="actions">
-      <%= f.submit "Sign up", class: "btn btn-dark w-100", data: { disable_with: "Processing..." } %>
+      <%= f.submit "Create User", class: "btn btn-dark w-100", data: { disable_with: "Processing..." } %>
     </div>
   <% end %>
 
+  <div class="text-center mt-3">
+    <%= link_to "Back to Users", admin_users_path, class: "text-decoration-none" %>
+  </div>
 </div>
 
 <script>
-  function handleSignup(event) {
-    event.preventDefault(); // Prevent the default form submission
-    
-    // Show the alert message
-    alert("Please ask the admin to change your role after signing up.");
-    
-    // Submit the form asynchronously
-    const form = event.target;
-    const formData = new FormData(form);
-    
-    fetch(form.action, {
-      method: form.method,
-      body: formData,
-      headers: {
-        'X-CSRF-Token': document.querySelector('[name="csrf-token"]').content
+
+(function() {
+  'use strict'
+  
+  const forms = document.querySelectorAll('form')
+  
+  Array.from(forms).forEach(form => {
+    form.addEventListener('submit', event => {
+      if (!form.checkValidity()) {
+        event.preventDefault()
+        event.stopPropagation()
       }
-    })
-    .then(response => {
-      if (response.ok) {
-        // After successful signup, redirect to sign-in page
-        window.location.href = "<%= new_session_path(resource_name) %>";
-      } else {
-        // Handle errors if needed
-        return response.json().then(errors => { throw errors; });
-      }
-    })
-    .catch(error => {
-      console.error("Error:", error);
-      // You might want to display errors to the user here
-    });
-  }
+
+      form.classList.add('was-validated')
+    }, false)
+  })
+})()
 </script>

@@ -32,7 +32,7 @@
             <td>
               <%= form_with url: admin_dashboard_update_user_role_path, method: :get, local: true do |form| %>
                 <%= form.hidden_field :user_id, value: user.id %>
-                <%= form.select :role, options_for_select([["Receptionist", "receptionist"], ["Doctor", "doctor"], ["Admin", "admin"], ["User", "user"]], user.role), {}, class: "form-select d-inline-block w-auto" %>
+                <%= form.select :role, options_for_select([["Receptionist", "receptionist"], ["Doctor", "doctor"], ["Admin", "admin"]], user.role), {}, class: "form-select d-inline-block w-auto" %>
                 <%= form.submit "Update", class: "btn btn-primary btn-sm ms-2" %>
               <% end %>
             </td>
