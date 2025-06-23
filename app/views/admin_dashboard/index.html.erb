@@ -1,0 +1,26 @@
+<div class="container mt-5">
+  <h1>Admin Dashboard</h1>
+  <p>Welcome, <%= current_user.email %>!</p>
+  <div class="row">
+    <div class="col-md-6">
+      <div class="card mb-3">
+        <div class="card-body">
+          <h5 class="card-title">System Statistics</h5>
+          <p class="card-text">Total Users: <%= @user_count %></p>
+          <p class="card-text">Total Patients: <%= @patient_count %></p>
+          <p class="card-text">Receptionists: <%= @receptionist_count %></p>
+          <p class="card-text">Doctors: <%= @doctor_count %></p>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-6">
+      <div class="card mb-3">
+        <div class="card-body">
+          <h5 class="card-title">Quick Actions</h5>
+          <%= link_to "View Patients", patients_path, class: "btn btn-primary mb-2" %>
+          <%= link_to "Manage Users", admin_dashboard_users_path, class: "btn btn-primary mb-2" %>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

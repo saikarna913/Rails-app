@@ -1,0 +1,25 @@
+<% content_for :title, "New patient" %>
+
+<div class="container py-5">
+  <div class="row justify-content-center">
+    <div class="col-lg-8">
+      <div class="card shadow-sm border-0">
+        <div class="card-header bg-white border-0 pt-4">
+          <h2 class="text-center mb-4">Register New Patient</h2>
+        </div>
+        
+        <div class="card-body px-5 py-4">
+          <%= render "form", patient: @patient %>
+        </div>
+        
+        <div class="card-footer bg-white border-0 pb-4">
+          <div class="text-center">
+            <%= link_to patients_path, class: "text-decoration-none" do %>
+              <i class="bi bi-arrow-left"></i> Back to patients list
+            <% end %>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

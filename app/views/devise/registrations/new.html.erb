@@ -1,0 +1,64 @@
+<div class="container mt-5" style="max-width: 500px;">
+  <h2 class="mb-4 text-center">Sign up</h2>
+
+  <%= form_for(resource, as: resource_name, url: registration_path(resource_name), html: { class: "border p-4 rounded", onsubmit: "handleSignup(event)" }) do |f| %>
+    <%= render "devise/shared/error_messages", resource: resource %>
+
+    <div class="mb-3">
+      <%= f.label :email, class: "form-label" %><br />
+      <%= f.email_field :email, autofocus: true, autocomplete: "email", class: "form-control" %>
+    </div>
+
+    <div class="mb-3">
+      <%= f.label :password, class: "form-label" %>
+      <% if @minimum_password_length %>
+        <small class="text-muted">(<%= @minimum_password_length %> characters minimum)</small>
+      <% end %><br />
+      <%= f.password_field :password, autocomplete: "new-password", class: "form-control" %>
+    </div>
+
+    <div class="mb-4">
+      <%= f.label :password_confirmation, class: "form-label" %><br />
+      <%= f.password_field :password_confirmation, autocomplete: "new-password", class: "form-control" %>
+    </div>
+
+    <div class="actions">
+      <%= f.submit "Sign up", class: "btn btn-dark w-100", data: { disable_with: "Processing..." } %>
+    </div>
+  <% end %>
+
+</div>
+
+<script>
+  function handleSignup(event) {
+    event.preventDefault(); // Prevent the default form submission
+    
+    // Show the alert message
+    alert("Please ask the admin to change your role after signing up.");
+    
+    // Submit the form asynchronously
+    const form = event.target;
+    const formData = new FormData(form);
+    
+    fetch(form.action, {
+      method: form.method,
+      body: formData,
+      headers: {
+        'X-CSRF-Token': document.querySelector('[name="csrf-token"]').content
+      }
+    })
+    .then(response => {
+      if (response.ok) {
+        // After successful signup, redirect to sign-in page
+        window.location.href = "<%= new_session_path(resource_name) %>";
+      } else {
+        // Handle errors if needed
+        return response.json().then(errors => { throw errors; });
+      }
+    })
+    .catch(error => {
+      console.error("Error:", error);
+      // You might want to display errors to the user here
+    });
+  }
+</script>
